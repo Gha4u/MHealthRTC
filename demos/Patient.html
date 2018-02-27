@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> <!--skip-->
+    <title>SehatMind</title>
+    <link rel="stylesheet" type="text/css" href="/easyrtc/easyrtc.css" />
+
+    <!--hide-->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/landing.css" />
+
+
+    <!--show-->
+    <!-- Assumes global locations for socket.io.js and easyrtc.js -->
+    <script src="/socket.io/socket.io.js"></script>
+    <script type="text/javascript" src="/easyrtc/easyrtc.js"></script>
+    <script type="text/javascript" src="js/demooo.js"></script>
+
+    <!--hide-->
+    <!-- Styles used within the demo -->
+    <style type="text/css">
+
+
+        #otherClients {
+            height:200px;
+            overflow-y:scroll;
+        }
+        #selfVideo {
+            height:100px;
+            width:100px;
+            float:left;
+            border:1px solid gray;
+            margin-left:21px;
+        }
+        #callerVideo {
+            height:300px;
+            width:757px;
+            border:1px solid gray;
+            margin-left:10px;
+        }
+        #acceptCallBox {
+            display:none;
+            z-index:2;
+            position:absolute;
+            top:100px;
+            left:400px;
+            border:red solid 2px;
+            background-color:pink;
+            padding:15px;
+        }
+
+        #stuffToSend {width:300px;}
+        #sendMessageArea{
+            width:92%;
+            margin-left: 5px;
+        }
+
+        #receiveMessageArea{
+
+            height:100px;
+            width:91%;
+            border:1px solid gray;
+            margin-left:10px;
+
+        }
+
+        #sendMessageText{
+            width:100%;
+        }
+        #conversation {
+            height:99px;
+            border:solid 1px gray;
+            overflow-y:scroll;
+        }
+    </style>
+
+    <!--show-->
+</head>
+<body>
+<!--hide-->
+<div class="container">
+
+
+
+    <div class="row"  id="main">
+        <br><br>
+        <!--show-->
+        <div  id="demoContainer">
+
+            <div class="col-md-3" id="connectControls">
+                <input type="checkbox" checked="checked" id="shareAudio" style="display: none" />
+                <input type="checkbox" checked="checked" id="shareVideo" style="display: none"/>
+                <input type="checkbox" checked="checked" id="expectAudio" style="display: none"/>
+                <input type="checkbox" checked="checked" id="expectVideo" style="display: none"/>
+                <input type="checkbox" id="useFreshIce" onclick="easyrtc.setUseFreshIceEachPeerConnection(this.value);" style="display: none"/>
+
+
+                <button class="btn" id="connectButton" onclick="connect()">Meet Doctor</button>
+                <button class="btn" id="disconnectButton" onclick="disconnect()">Disconnect</button>
+                <button class="btn" id="hangupButton" disabled="disabled" onclick="hangup()" style="display: none">Hangup</button>
+
+
+                <div id="iam">Not yet connected...</div>
+                <br />
+                <div id="otherClients" style="display: none;"></div>                
+                
+            </div>
+
+
+            <div class="col-md-9" id="videos">
+                <div class="row">
+                    <div class="col-md-9"><video autoplay="autoplay" id="callerVideo"></video></div>
+                    <div class="col-md-3"><video autoplay="autoplay" id="selfVideo"  class="easyrtcMirror" muted="muted" volume="0"></video></div>
+                    <div id="acceptCallBox"> <!-- Should be initially hidden using CSS -->
+                        <div id="acceptCallLabel"></div>
+                        <button id="callAcceptButton" >Accept</button> <button id="callRejectButton">Reject</button>
+                    </div>
+                    <div id="audioSinkButtons" style="display: none"></div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div id="receiveMessageArea" >
+                            <div id="conversation"></div>
+                        </div>
+
+                        <div id="sendMessageArea">
+                            <div id="iamm">Obtaining ID...</div>
+                            <textarea class="form-control"  id="sendMessageText"></textarea>
+
+                            <div  id="chatid"></div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+
+
+
+        <!--hide-->
+        <hr />
+        <!--hide-->
+        <br style="clear:both;" />
+        <hr />
+
+
+    </div>
+
+</div>
+<!--show-->
+</body>
+</html>
